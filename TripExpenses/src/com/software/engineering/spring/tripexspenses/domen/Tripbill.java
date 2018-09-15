@@ -22,6 +22,10 @@ public class Tripbill implements Serializable {
 	private long tripbillid;
 
 	private BigDecimal totalamount;
+	
+	private BigDecimal totalalowance;
+	
+	private BigDecimal summary;
 
 	//bi-directional many-to-one association to Businesstrip
 	@ManyToOne
@@ -45,6 +49,22 @@ public class Tripbill implements Serializable {
 
 	public void setTotalamount(BigDecimal totalamount) {
 		this.totalamount = totalamount;
+	}
+
+	public BigDecimal getTotalalowance() {
+		return totalalowance;
+	}
+
+	public void setTotalalowance(BigDecimal totalalowance) {
+		this.totalalowance = totalalowance;
+	}
+
+	public BigDecimal getSummary() {
+		return summary;
+	}
+
+	public void setSummary(BigDecimal summary) {
+		this.summary = summary;
 	}
 
 	public Businesstrip getBusinesstrip() {

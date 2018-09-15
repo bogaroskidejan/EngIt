@@ -81,6 +81,5 @@ public class Bill implements Serializable {
 		return "Bill [billid=" + billid + ", billdate=" + billdate + ", billitem=" + billitem + ", price=" + price
 				+ ", businesstrip=" + businesstrip + "]";
 	}
-	
 
 }

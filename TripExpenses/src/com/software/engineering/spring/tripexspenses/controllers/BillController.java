@@ -1,7 +1,6 @@
 package com.software.engineering.spring.tripexspenses.controllers;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,30 +51,53 @@ public class BillController {
 
 	@RequestMapping(value = "/docreatebill", method = RequestMethod.POST)
 	public String doCreateBill(Model model, String billdate, Long bustripid, Bill bill,  BindingResult result) throws ParseException {
+		
+//		setting business trip to bill
 		Businesstrip busTrip=businessTripService.findByID(bustripid);
 		bill.setBusinesstrip(busTrip);
+		
+//		parsing date
 		Date date = new SimpleDateFormat("dd-MM-yyyy").parse(billdate); 
 		bill.setBilldate(date);
 		
+//		price per bill
 		BigDecimal pricePerBill = bill.getPrice();
+		
+//		getting total amount from trip bill
 		Businesstrip businessTrip = bill.getBusinesstrip();
 		Tripbill tripBill = businessTrip.getTripbills();
 		BigDecimal tripBillTotal = tripBill.getTotalamount();
 
+//		setting 0 value if our bill is empty
 		if(tripBillTotal == null) {
 			tripBillTotal = new BigDecimal(0);
-			System.out.println("inicijalizovao");
+			System.out.println("Initialized!");
 		}
+		
+//		adding bill price to total amount
 		if(tripBillTotal != new BigDecimal(0)) {
 			tripBillTotal = tripBillTotal.add(pricePerBill);
-			System.out.println("sve radi lepo");
+			System.out.println("Works!");
 		}
 		else {
-			System.out.println("neceeee");
+			System.out.println("Does not work!");
 		}
+		
+//		setting total amount to trip bill
 		tripBill.setTotalamount(tripBillTotal);
 		System.out.println(tripBillTotal);
+		
+//		setting total allowance to bill
+		BigDecimal tripTotalAllowance = businessTrip.getTriptotallow();
+		tripBill.setTotalalowance(tripTotalAllowance);
+		System.out.println(tripTotalAllowance);
+		
+//		summary
+		BigDecimal summary = tripTotalAllowance.add(tripBillTotal);
+		System.out.println(summary);
+		tripBill.setSummary(summary);
 		tripBillService.save(tripBill);
+		
 		System.out.println(tripBill);
 		billService.save(bill);
 		System.out.println(bill);

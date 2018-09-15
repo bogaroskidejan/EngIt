@@ -13,8 +13,10 @@
                 <thead>
                     <tr>
                         <th>Trip bill Id</th>
-                        <th>Total amount</th>  
                         <th>Business trip</th> 
+                        <th>Total bill amount</th>  
+                        <th>Total allowance</th>
+                        <th>Summary</th> 
                         <th>Action:</th>
                     </tr>
                 </thead>
@@ -22,8 +24,10 @@
                     <c:forEach var="tripbill" items="${tripbills}">
                         <tr>
                             <td>${tripbill.tripbillid}</td>
-                            <td>${tripbill.totalamount}</td>                        
                             <td>${tripbill.businesstrip}</td> 
+                            <td>${tripbill.totalamount}</td>                        
+                            <td>${tripbill.totalalowance}</td> 
+                            <td>${tripbill.summary}</td>
                             <td><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletetripbill?tripbillid=${tripbill.tripbillid}">Delete</a>
                             </td>
                         </tr>
